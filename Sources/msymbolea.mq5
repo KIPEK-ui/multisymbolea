@@ -308,21 +308,13 @@ void OnTick()
             }
         
     
-         // Update Symbol Metrics
-         SymbolMetrics[SymbolLoop] = CurrentSymbol + 
-                                     " | Ticks Processed: " + IntegerToString(TicksProcessed[SymbolLoop])+
-                                     " | Last Candle: " + TimeToString(TimeLastTickProcessed[SymbolLoop])+
-                                     "  |MACD: " + IndicatorSignal1+
-                                     "  |EMA: " + IndicatorSignal2+
-                                     "  |RSI Signal: " + IndicatorSignal3+
-                                     "  |DeM Signal: " + IndicatorSignal4+
-                                     "  |OBV Signal: "+ IndicatorSignal5+
-                                     "  |Bollinger Signal: "+ IndicatorSignal6+
-                                     "  |Fibonacci Signal: "+ IndicatorSignal7+
-                                     "  |CMF Signal: "+ IndicatorSignal8+
-                                     "  |ADX Signal: "+ IndicatorSignal9+
-                                     "  |Stochastic Signal: "+ IndicatorSignal10+ 
-                                     "  |Williams %R Signal: "+ IndicatorSignal11;
+         // Update Symbol Metrics with trade decisions
+                   SymbolMetrics[SymbolLoop] = CurrentSymbol + 
+                            " | Ticks Processed: " + IntegerToString(TicksProcessed[SymbolLoop])+
+                            " | Last Candle: " + TimeToString(TimeLastTickProcessed[SymbolLoop])+
+                            " | Trade Decision: " + ((IndicatorSignal3 == "Long" && IndicatorSignal6 == "Long" && IndicatorSignal9 == "Strong Trend" && IndicatorSignal10 == "Oversold" && IndicatorSignal11 == "Oversold") ? "BUY" : 
+                                                    (IndicatorSignal3 == "Short" && IndicatorSignal6 == "Short" && IndicatorSignal9 == "Strong Trend" && IndicatorSignal10 == "Overbought" && IndicatorSignal11 == "Overbought") ? "SELL" : "HOLD");
+
       }
       
       // Update expert comments for each symbol
